@@ -69,7 +69,7 @@ class _SingleWherePageState extends State<SingleWherePage> {
                         child: Text(
                           'WHERE DO YOU PLAY?',
                           style: GoogleFonts.oswald(
-                            fontSize: 24,
+                            fontSize: 32,
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w800,
                             color: Colors.white,
@@ -82,7 +82,7 @@ class _SingleWherePageState extends State<SingleWherePage> {
                         child: Text(
                           'Choose a location for your training',
                           style: GoogleFonts.montserrat(
-                            fontSize: 12,
+                            fontSize: 20,
                             fontStyle: FontStyle.italic,
                             color: Colors.white.withOpacity(0.75),
                           ),
