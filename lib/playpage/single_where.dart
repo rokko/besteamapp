@@ -173,7 +173,6 @@ class _RoundIcon extends StatelessWidget {
             decoration: BoxDecoration(
               color: kGreen,
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.white.withOpacity(0.85), width: 2),
               boxShadow: const [BoxShadow(color: Colors.black38, blurRadius: 8, offset: Offset(0, 3))],
             ),
             alignment: Alignment.center,
@@ -225,7 +224,6 @@ class _RoundNumber extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: kGreen,
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white.withOpacity(0.85), width: 2),
                   boxShadow: const [BoxShadow(color: Colors.black38, blurRadius: 8, offset: Offset(0, 3))],
                 ),
                 alignment: Alignment.center,
