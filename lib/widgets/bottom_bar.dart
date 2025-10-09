@@ -30,20 +30,23 @@ class AppBottomBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Icon(Icons.delete_outline, color: Color(0xFFAEC3FF), size: 30),
+              const Icon(Icons.delete_outline, color: Colors.white, size: 30),
               GestureDetector(
                 onTap: onCenterTap,
                 child: Container(
-                  width: 64, height: 64,
+                  width: 58, height: 58,
                   decoration: const BoxDecoration(
                     color: _green, shape: BoxShape.circle,
                     boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 12, offset: Offset(0, 6))],
                   ),
                   alignment: Alignment.center,
-                  child: Text('B', style: GoogleFonts.oswald(fontSize: 36, fontWeight: FontWeight.w800, color: Colors.white)),
+                  child:Image.asset( 'assets/images/iconb.png',
+        width: 40,
+        height: 40,
+        fit: BoxFit.cover,),
                 ),
               ),
-              const Icon(Icons.cast, color: Color(0xFFAEC3FF), size: 30),
+              const Icon(Icons.cast, color: Colors.white, size: 30),
             ],
           ),
         ],

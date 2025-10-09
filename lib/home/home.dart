@@ -107,7 +107,7 @@ class _PlayerHeader extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 76, height: 76,
+          width: 88, height: 88,
           decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white24),
           clipBehavior: Clip.hardEdge,
           child: Image.asset(

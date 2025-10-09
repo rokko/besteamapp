@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../widgets/bottom_bar.dart'; // aggiungi questa riga
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
@@ -13,13 +14,12 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBg,
+      backgroundColor: const Color.fromARGB(255, 28, 28, 28),
       // se vuoi anche qui il drawer come nella Home: aggiungi drawer: const _ProfileDrawer(),
       body: SafeArea(
         child: Stack(
           children: [
             // Decor: linee verticali verdi trasparenti
-            Positioned.fill(child: CustomPaint(painter: _LinesPainter())),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -33,7 +33,10 @@ class NotificationsPage extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: () => Navigator.of(context).maybePop(),
-                        icon: const Icon(Icons.chevron_left, color: Colors.white),
+                        icon: const Icon(
+                          Icons.chevron_left,
+                          color: Colors.white,
+                        ),
                         splashRadius: 22,
                       ),
                       const Spacer(),
@@ -55,13 +58,16 @@ class NotificationsPage extends StatelessWidget {
                 ),
 
                 // LISTA notifiche
-                const Expanded(
-                  child: _NotificationsList(),
-                ),
+                const Expanded(child: _NotificationsList()),
 
                 // Bottom bar (stessa della Home)
                 const SizedBox(height: 6),
-                const _BottomBar(),
+                AppBottomBar(
+                  onCenterTap: () {
+                    // Azione desiderata, ad esempio:
+                    Navigator.of(context).pushNamed('/play');
+                  },
+                ),
               ],
             ),
           ],
@@ -95,9 +101,17 @@ class _CurvedHeader extends StatelessWidget {
                 // (iconcine top come nello stile)
                 Icon(Icons.home_outlined, color: Colors.white, size: 24),
                 SizedBox(width: 16),
-                Icon(Icons.notifications, color: NotificationsPage.kGreen, size: 24),
+                Icon(
+                  Icons.notifications,
+                  color: NotificationsPage.kGreen,
+                  size: 24,
+                ),
                 Spacer(),
-                Icon(Icons.sports_soccer, color: NotificationsPage.kGreen, size: 24),
+                Icon(
+                  Icons.sports_soccer,
+                  color: NotificationsPage.kGreen,
+                  size: 24,
+                ),
                 SizedBox(width: 16),
                 Icon(Icons.menu, color: Colors.white, size: 26),
               ],
@@ -209,67 +223,20 @@ class _NotificationTile extends StatelessWidget {
 
 /* =============== Bottom bar come Home ============== */
 
-class _BottomBar extends StatelessWidget {
-  const _BottomBar();
-
-  @override
-  Widget build(BuildContext context) {
-    const kGreen = NotificationsPage.kGreen;
-    const softBlue = Color(0xFFAEC3FF);
-    return SizedBox(
-      height: 78,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // alone/gradiente
-          Positioned.fill(
-            child: IgnorePointer(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [const Color(0xFF0F2A14).withOpacity(0.7), Colors.transparent],
-                    stops: const [0.0, 0.9],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Icon(Icons.delete_outline, color: softBlue, size: 30),
-              Container(
-                width: 64,
-                height: 64,
-                decoration: const BoxDecoration(
-                  color: kGreen,
-                  shape: BoxShape.circle,
-                  boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 12, offset: Offset(0, 6))],
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  'B',
-                  style: GoogleFonts.oswald(fontSize: 36, fontWeight: FontWeight.w800, color: Colors.white),
-                ),
-              ),
-              const Icon(Icons.cast, color: softBlue, size: 30),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 /* ================ Helpers grafici ================== */
 
 class _LinesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final p = Paint()..color = NotificationsPage.kLine..strokeWidth = 1.2;
-    final xs = [size.width * .18, size.width * .34, size.width * .68, size.width * .84];
+    final p = Paint()
+      ..color = NotificationsPage.kLine
+      ..strokeWidth = 1.2;
+    final xs = [
+      size.width * .18,
+      size.width * .34,
+      size.width * .68,
+      size.width * .84,
+    ];
     for (final x in xs) {
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), p);
     }
