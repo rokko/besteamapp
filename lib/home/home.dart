@@ -168,77 +168,167 @@ class _PlayerHeader extends StatelessWidget {
 
 /* --------------- Piramide compact v2 ---------------- */
 
+/* --------------- Piramide compact v2 ---------------- */
 class _StatsPyramidCompact extends StatelessWidget {
   const _StatsPyramidCompact();
-
-  static const double canvasW = 336;
-  static const double canvasH = 448;
-
-  static const double centerW = 300;
-  static const double sideW   = 150;
-  static const double gapW    = 12;
-  static const double gapHRow = 10;
-
-  static const double cardH   = 62;
-  static const double notchW  = 14;
-  static const double notchH  = 6;
-
-  static const double connT   = 6;
-  static const double connV   = 8;
-  static const double armW    = 22;
+  
+  // Dimensioni card
+  static const double cardW = 160.0;  // larghezza singola card
+  static const double cardH = 54.0;   // altezza card
+  static const double gap = 4.0;      // gap minimo tra card affiancate
+  static const double vGap = 12.0;    // gap verticale tra le righe
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      fit: BoxFit.contain,
-      alignment: Alignment.topCenter,
-      child: SizedBox(
-        width: canvasW, height: canvasH,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // 1. GOALKEEPING (singola, centrata)
+        _StatCard(
+          width: cardW,
+          height: cardH,
+          title: 'GOALKEEPING',
+          progress: 0.58,
+          iconData: Icons.sports_soccer,
+        ),
+        SizedBox(height: vGap),
+        
+        // 2. PHYSICAL + TECHNICAL (coppia)
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _NotchedCard(width: centerW, height: cardH, title: 'GOALKEEPER', progress: 0.58,
-              notchTop: false, notchBottom: true, notchW: notchW, notchH: notchH),
-            _ConnectorVertical(height: connV, thickness: connT),
-            _ForkConnector(totalWidth: canvasW, arm: armW, thickness: connT),
+            _StatCard(
+              width: cardW,
+              height: cardH,
+              title: 'PHYSICAL',
+              progress: 0.20,
+              iconData: Icons.fitness_center,
+            ),
+            SizedBox(width: gap),
+            _StatCard(
+              width: cardW,
+              height: cardH,
+              title: 'TECHNICAL',
+              progress: 0.62,
+              iconData: Icons.precision_manufacturing,
+            ),
+          ],
+        ),
+        SizedBox(height: vGap),
+        
+        // 3. SPEED (singola, centrata)
+        _StatCard(
+          width: cardW,
+          height: cardH,
+          title: 'SPEED',
+          progress: 0.42,
+          iconData: Icons.speed,
+        ),
+        SizedBox(height: vGap),
+        
+        // 4. KICK + PASS (coppia)
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _StatCard(
+              width: cardW,
+              height: cardH,
+              title: 'KICK',
+              progress: 0.30,
+              iconData: Icons.sports,
+            ),
+            SizedBox(width: gap),
+            _StatCard(
+              width: cardW,
+              height: cardH,
+              title: 'PASS',
+              progress: 0.82,
+              iconData: Icons.arrow_forward,
+            ),
+          ],
+        ),
+        SizedBox(height: vGap),
+        
+        // 5. MENTAL (singola, centrata)
+        _StatCard(
+          width: cardW,
+          height: cardH,
+          title: 'MENTAL',
+          progress: 0.45,
+          iconData: Icons.psychology,
+        ),
+      ],
+    );
+  }
+}
 
-            const SizedBox(height: 0),
+// Widget per ogni singola card statistica
+class _StatCard extends StatelessWidget {
+  final double width;
+  final double height;
+  final String title;
+  final double progress;
+  final IconData iconData;
+
+  const _StatCard({
+    required this.width,
+    required this.height,
+    required this.title,
+    required this.progress,
+    required this.iconData,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: HomePage.kMint,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Riga con icona e titolo
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _NotchedCard(width: sideW, height: cardH, title: 'PHYSIQUE', progress: 0.20,
-                  notchTop: true, notchBottom: false, notchW: notchW, notchH: notchH),
-                const SizedBox(width: gapW),
-                _NotchedCard(width: sideW, height: cardH, title: 'TECHNIQUE', progress: 0.62,
-                  notchTop: true, notchBottom: false, notchW: notchW, notchH: notchH),
+                Container(
+                  width: 28,
+                  height: 28,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(iconData, size: 16, color: Colors.black87),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: GoogleFonts.inter(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
               ],
             ),
-
-            SizedBox(height: gapHRow - 2),
-            _ConnectorVertical(height: connV, thickness: connT),
-
-            _NotchedCard(width: centerW, height: cardH, title: 'SPEED', progress: 0.42,
-              notchTop: true, notchBottom: true, notchW: notchW, notchH: notchH),
-            _ConnectorVertical(height: connV, thickness: connT),
-            _ForkConnector(totalWidth: canvasW, arm: armW, thickness: connT),
-
-            const SizedBox(height: 0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _NotchedCard(width: sideW, height: cardH, title: 'KICK', progress: 0.30,
-                  notchTop: true, notchBottom: false, notchW: notchW, notchH: notchH),
-                const SizedBox(width: gapW),
-                _NotchedCard(width: sideW, height: cardH, title: 'PASS', progress: 0.82,
-                  notchTop: true, notchBottom: false, notchW: notchW, notchH: notchH),
-              ],
+            // Progress bar
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: LinearProgressIndicator(
+                value: progress,
+                backgroundColor: Colors.white.withOpacity(0.4),
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.black87),
+                minHeight: 8,
+              ),
             ),
-
-            SizedBox(height: gapHRow - 2),
-            _ConnectorVertical(height: connV, thickness: connT),
-
-            _NotchedCard(width: centerW, height: cardH, title: 'MIND', progress: 0.45,
-              notchTop: true, notchBottom: false, notchW: notchW, notchH: notchH),
           ],
         ),
       ),

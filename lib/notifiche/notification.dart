@@ -180,50 +180,43 @@ class _NotificationTile extends StatelessWidget {
           color: Colors.white.withOpacity(0.05),
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // bullet per UNREAD
-              Padding(
-                padding: const EdgeInsets.only(top: 7.5, right: 10),
-                child: Container(
-                  width: 6,
-                  height: 6,
-                  decoration: BoxDecoration(
-                    color: item.unread ? Colors.white : Colors.transparent,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: item.unread ? Colors.white : Colors.transparent,
-                      width: 1,
-                    ),
-                  ),
-                ),
-              ),
-              // testo
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item.title,
-                      style: GoogleFonts.oswald(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      item.body,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 12,
-                        color: Colors.white.withOpacity(0.7),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+  crossAxisAlignment: CrossAxisAlignment.center,
+  children: [
+    if (item.unread)
+      Container(
+        width: 8,
+        height: 8,
+        margin: const EdgeInsets.only(right: 10),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+        ),
+      ),
+    Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            item.title,
+            style: GoogleFonts.oswald(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
           ),
+          const SizedBox(height: 2),
+          Text(
+            item.body,
+            style: GoogleFonts.montserrat(
+              fontSize: 12,
+              color: Colors.white.withOpacity(0.7),
+            ),
+          ),
+        ],
+      ),
+    ),
+  ],
+),
         ),
       ],
     );
