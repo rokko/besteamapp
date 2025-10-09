@@ -64,9 +64,7 @@ class _Item extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
         child: Row(
           children: [
-            Container(width: 14, height: 14,
-              decoration: const BoxDecoration(color: ProfileDrawer._bullet, shape: BoxShape.circle)),
-            const SizedBox(width: 12),
+        
             Text(label, style: GoogleFonts.montserrat(fontSize: 16, color: ProfileDrawer._itemText)),
           ],
         ),

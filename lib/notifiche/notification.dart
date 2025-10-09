@@ -18,7 +18,8 @@ class NotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 28, 28, 28),
-     drawer: const ProfileDrawer(),// se vuoi anche qui il drawer come nella Home: aggiungi drawer: const _ProfileDrawer(),
+      endDrawer:
+          const ProfileDrawer(), // se vuoi anche qui il drawer come nella Home: aggiungi drawer: const _ProfileDrawer(),
       body: SafeArea(
         child: Stack(
           children: [
@@ -27,13 +28,13 @@ class NotificationsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // HEADER curvo con icone (stesso stile)
-               Builder(
-  builder: (headerContext) => AppHeader(
-    onHomeTap: () => context.go('/home'),
-    onBellTap: () {},
-    onMenuTap: () => Scaffold.of(headerContext).openDrawer(),
-  ),
-),
+                Builder(
+                  builder: (headerContext) => AppHeader(
+                    onHomeTap: () => context.go('/home'),
+                    onBellTap: () {},
+                    onMenuTap: () => Scaffold.of(headerContext).openEndDrawer(),
+                  ),
+                ),
                 // RIGA: back + titolo centrato "NOTIFICATION"
                 Padding(
                   padding: const EdgeInsets.fromLTRB(6, 6, 6, 8),

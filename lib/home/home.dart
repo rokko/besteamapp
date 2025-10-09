@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: HomePage.kBg,
-      drawer: const ProfileDrawer(), // menu a bandiera
+      endDrawer: const ProfileDrawer(), // menu a bandiera
       body: SafeArea(
         child: Stack(
           children: [
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                 AppHeader(
                   onHomeTap: () {}, // già su home
                   onBellTap: () => context.push('/notifications'),
-                  onMenuTap: () => _scaffoldKey.currentState?.openDrawer(),
+                  onMenuTap: () => _scaffoldKey.currentState?.openEndDrawer(),
                 ),
 
                 // --- CONTENUTO HOME (uguale a prima) ---
