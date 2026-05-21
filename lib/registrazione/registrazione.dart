@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,6 +31,7 @@ class _RegistrationFlowPageState extends State<RegistrationFlowPage> {
    bool _newsletter = false;
    bool _privacyAccepted = false;
    bool _obscurePassword = true;
+   bool _obscureConfirm = true;
 
   // ---- STEP 2 ----
   final _form2 = GlobalKey<FormState>();
@@ -299,7 +301,9 @@ class _RegistrationFlowPageState extends State<RegistrationFlowPage> {
                                    const TextSpan(text: 'I accept the '),
                                    TextSpan(
                                        text: 'Privacy Policy',
-                                       style: _body.copyWith(color: kPrimary)),
+                                       style: _body.copyWith(color: kPrimary, decoration: TextDecoration.underline),
+                                       recognizer: TapGestureRecognizer()..onTap = () => context.push('/privacy'),
+                                   ),
                                    const TextSpan(text: '.'),
                                  ],
                                ),
@@ -345,9 +349,18 @@ class _RegistrationFlowPageState extends State<RegistrationFlowPage> {
                           const SizedBox(height: 8),
                           TextFormField(
                             controller: _confirm,
-                            obscureText: true,
+                            obscureText: _obscureConfirm,
                             style: _body.copyWith(color: Colors.white),
-                            decoration: _field(hint: 'Bestpassword1234_'),
+                            decoration: _field(
+                              hint: 'Bestpassword1234_',
+                              suffix: IconButton(
+                                icon: Icon(
+                                  _obscureConfirm ? Icons.visibility_off : Icons.visibility,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () => setState(() => _obscureConfirm = !_obscureConfirm),
+                              ),
+                            ),
                             validator: (v) => (v != _password.text) ? 'Le password non coincidono' : null,
                           ),
                           const SizedBox(height: 24),

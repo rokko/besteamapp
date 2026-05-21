@@ -5,6 +5,7 @@ import 'package:besteamapp/playpage/scan_nfc.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:besteamapp/registrazione/registrazione.dart';
+import 'package:besteamapp/registrazione/privacy_page.dart';
 import 'package:besteamapp/notifiche/notification.dart';
 import 'package:besteamapp/playpage/play_page.dart';
 import 'package:besteamapp/playpage/single_where.dart';
@@ -18,11 +19,12 @@ import 'splash/splash.dart';
 void main() => runApp(const MyApp());
 
 final _router = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/splash',
   routes: [
     GoRoute(path: '/splash', builder: (_, __) => const SplashPage()),
     GoRoute(path: '/onboarding', builder: (_, __) => const OnboardingPage()),
     GoRoute(path: '/registrazione', builder: (_, __) => const RegistrationFlowPage()),
+    GoRoute(path: '/privacy', builder: (_, __) => const PrivacyPage()),
     GoRoute(path: '/home', builder: (_, __) => const HomePage()),
      GoRoute(
       path: '/notifications',
