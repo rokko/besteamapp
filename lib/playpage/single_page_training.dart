@@ -14,114 +14,108 @@ class SingleTrainingPage extends StatefulWidget {
 class _SingleTrainingPageState extends State<SingleTrainingPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  static const kBg = Color(0xFF1B1B1B);
-  static const kGreen = Color(0xFF2CC653);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: kBg,
+      backgroundColor: const Color(0xFF1B1B1B),
       drawer: const ProfileDrawer(),
       body: SafeArea(
         child: Stack(
           children: [
-            // Watermark pallone tenue sullo sfondo
-            Positioned.fill(
+            Positioned(
+              left: -220,
+              top: 120,
               child: IgnorePointer(
-                child: Align(
-                  alignment: const Alignment(-0.75, -0.05),
-                  child: Icon(Icons.sports_soccer, size: 520, color: Colors.white.withOpacity(0.06)),
-                ),
+                child: Icon(Icons.sports_soccer, size: 650, color: Colors.white.withOpacity(0.04)),
               ),
             ),
-
             Column(
               children: [
-                // Header condiviso (stesso delle altre pagine)
                 AppHeader(
                   onHomeTap: () => context.go('/home'),
                   onBellTap: () => context.push('/notifications'),
                   onMenuTap: () => _scaffoldKey.currentState?.openDrawer(),
                 ),
-
-                // Back + Titolo + Subtitle
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 2, 8, 14),
-                  child: Column(
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      Row(
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
+                          onPressed: () => context.pop(),
+                          splashRadius: 22,
+                        ),
+                      ),
+                      Column(
                         children: [
-                          IconButton(
-                            icon: const Icon(Icons.chevron_left, color: Colors.white),
-                            onPressed: () => context.pop(),
-                            splashRadius: 22,
-                          ),
-                          const SizedBox(width: 8),
                           Text(
                             'WHAT KIND OF TRAINING',
                             style: GoogleFonts.oswald(
-                              fontSize: 32,
+                              fontSize: 26,
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w800,
-                              color: Color.fromRGBO(255, 253, 253, 1),
+                              color: Colors.white,
                               letterSpacing: .8,
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 2),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 52),
-                          child: Text(
+                          Text(
                             'Choose a workout for your training',
                             style: GoogleFonts.montserrat(
-                              fontSize: 12,
+                              fontSize: 13,
                               fontStyle: FontStyle.italic,
                               color: Colors.white.withOpacity(0.75),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ],
                   ),
                 ),
-
-                // Griglia 2x2
                 Expanded(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Wrap(
-                        spacing: 28,
-                        runSpacing: 26,
-                        alignment: WrapAlignment.center,
-                        children: [
-                          _TrainingOption(
-                            label: 'Kick',
-                            iconBuilder: (c) => _IconKick(),
-                          onTap: () =>context.push('/single/training/start'),
-                          ),
-                          _TrainingOption(
-                            label: 'Pass',
-                            iconBuilder: (c) => _IconPass(),
-                           onTap: () => context.push('/single/training/start'),
-                          ),
-                          _TrainingOption(
-                            label: 'Dribble',
-                            iconBuilder: (c) => _IconDribble(),
-                          onTap: () => context.push('/single/training/start'),
-                          ),
-                          _TrainingOption(
-                            label: 'Ball Control',
-                            iconBuilder: (c) => _IconBallControl(),
-                            onTap: () => context.push('/single/training/start'),
-                          ),
-                        ],
-                      ),
-                    ),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final circle = 100.0;
+                      return Center(
+                        child: GridView.count(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 30,
+                          crossAxisSpacing: 30,
+                          children: [
+                            _TrnBtn(
+                              size: circle,
+                              label: 'Kick',
+                              icon: _IconKick(),
+                              onTap: () => context.push('/single/training/start'),
+                            ),
+                            _TrnBtn(
+                              size: circle,
+                              label: 'Pass',
+                              icon: _IconPass(),
+                              onTap: () => context.push('/single/training/start'),
+                            ),
+                            _TrnBtn(
+                              size: circle,
+                              label: 'Dribble',
+                              icon: _IconDribble(),
+                              onTap: () => context.push('/single/training/start'),
+                            ),
+                            _TrnBtn(
+                              size: circle,
+                              label: 'Ball Control',
+                              icon: _IconBallControl(),
+                              onTap: () => context.push('/single/training/start'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -133,60 +127,50 @@ class _SingleTrainingPageState extends State<SingleTrainingPage> {
   }
 }
 
-/* ----------------------- UI bits ----------------------- */
-
-class _TrainingOption extends StatelessWidget {
+class _TrnBtn extends StatelessWidget {
+  final double size;
   final String label;
-  final WidgetBuilder iconBuilder;
+  final Widget icon;
   final VoidCallback onTap;
-  const _TrainingOption({required this.label, required this.iconBuilder, required this.onTap});
-
-  static const kGreen = Color(0xFF2CC653);
+  const _TrnBtn({required this.size, required this.label, required this.icon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 120,
-      child: Column(
-        children: [
-          InkResponse(
-            onTap: onTap,
-            radius: 64,
-            child: Container(
-              width: 96,
-              height: 96,
-              decoration: BoxDecoration(
-                color: kGreen,
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white.withOpacity(0.85), width: 2),
-                boxShadow: const [BoxShadow(color: Colors.black38, blurRadius: 8, offset: Offset(0, 3))],
-              ),
-              alignment: Alignment.center,
-              child: iconBuilder(context),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        InkResponse(
+          onTap: onTap,
+          radius: size,
+          child: Container(
+            width: size,
+            height: size,
+            decoration: const BoxDecoration(
+              color: Color(0xFF2CC653),
+              shape: BoxShape.circle,
+              boxShadow: [BoxShadow(color: Colors.black38, blurRadius: 8, offset: Offset(0, 3))],
             ),
+            alignment: Alignment.center,
+            child: icon,
           ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.montserrat(
-              fontSize: 12,
-              fontStyle: FontStyle.italic,
-              color: Colors.white.withOpacity(0.9),
-            ),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.montserrat(
+            fontSize: 13,
+            color: Colors.white.withOpacity(0.9),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
 
-/* ---- Icone composte per simulare quelle del mock ---- */
-
 class _IconKick extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // scarpa + pallone piccolo in basso a destra
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -195,11 +179,11 @@ class _IconKick extends StatelessWidget {
           bottom: -2,
           right: -2,
           child: Container(
-            width: 26,
-            height: 26,
+            width: 20,
+            height: 20,
             decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
             alignment: Alignment.center,
-            child: const Icon(Icons.sports_soccer, color: Colors.black87, size: 16),
+            child: const Icon(Icons.sports_soccer, color: Colors.black87, size: 14),
           ),
         ),
       ],
@@ -210,15 +194,14 @@ class _IconKick extends StatelessWidget {
 class _IconPass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // pallone + tre linee verticali di "pass"
     return SizedBox(
       width: 60,
-      height: 44,
+      height: 40,
       child: Stack(
         children: [
           const Align(
             alignment: Alignment.centerLeft,
-            child: Icon(Icons.sports_soccer, color: Colors.white, size: 32),
+            child: Icon(Icons.sports_soccer, color: Colors.white, size: 28),
           ),
           Align(
             alignment: Alignment.centerRight,
@@ -227,8 +210,8 @@ class _IconPass extends StatelessWidget {
               children: List.generate(
                 3,
                 (_) => Container(
-                  width: 4,
-                  height: 20,
+                  width: 3,
+                  height: 16,
                   margin: const EdgeInsets.symmetric(horizontal: 2),
                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(2)),
                 ),
@@ -244,15 +227,14 @@ class _IconPass extends StatelessWidget {
 class _IconDribble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // pallone + freccia curva
     return Stack(
       alignment: Alignment.center,
       children: [
-        const Icon(Icons.sports_soccer, color: Colors.white, size: 30),
-        const SizedBox(width: 56, height: 56),
+        const Icon(Icons.sports_soccer, color: Colors.white, size: 26),
+        const SizedBox(width: 46, height: 46),
         Positioned(
           bottom: 4,
-          child: Icon(Icons.redo, size: 30, color: Colors.white.withOpacity(0.95)),
+          child: Icon(Icons.redo, size: 26, color: Colors.white.withOpacity(0.95)),
         ),
       ],
     );
@@ -262,15 +244,14 @@ class _IconDribble extends StatelessWidget {
 class _IconBallControl extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // pallone + orologio in alto a destra
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        const Icon(Icons.sports_soccer, color: Colors.white, size: 36),
-        Positioned(
-          top: -2,
-          right: -2,
-          child: Icon(Icons.access_time, color: Colors.white, size: 20),
+        const Icon(Icons.sports_soccer, color: Colors.white, size: 32),
+        const Positioned(
+          top: -4,
+          right: -4,
+          child: Icon(Icons.access_time, color: Colors.white, size: 18),
         ),
       ],
     );
