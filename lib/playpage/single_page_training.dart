@@ -76,46 +76,40 @@ class _SingleTrainingPageState extends State<SingleTrainingPage> {
                   ),
                 ),
                 Expanded(
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      final circle = 100.0;
-                      return Center(
-                        child: GridView.count(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: const EdgeInsets.symmetric(horizontal: 40),
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 30,
-                          crossAxisSpacing: 30,
-                          children: [
-                            _TrnBtn(
-                              size: circle,
-                              label: 'Kick',
-                              icon: _IconKick(),
-                              onTap: () => context.push('/single/training/start'),
-                            ),
-                            _TrnBtn(
-                              size: circle,
-                              label: 'Pass',
-                              icon: _IconPass(),
-                              onTap: () => context.push('/single/training/start'),
-                            ),
-                            _TrnBtn(
-                              size: circle,
-                              label: 'Dribble',
-                              icon: _IconDribble(),
-                              onTap: () => context.push('/single/training/start'),
-                            ),
-                            _TrnBtn(
-                              size: circle,
-                              label: 'Ball Control',
-                              icon: _IconBallControl(),
-                              onTap: () => context.push('/single/training/start'),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Wrap(
+                        spacing: 30,
+                        runSpacing: 30,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          _TrnBtn(
+                            size: 144.0,
+                            label: 'Kick',
+                            icon: _IconKick(),
+                            onTap: () => context.push('/single/training/start'),
+                          ),
+                          _TrnBtn(
+                            size: 144.0,
+                            label: 'Pass',
+                            icon: _IconPass(),
+                            onTap: () => context.push('/single/training/start'),
+                          ),
+                          _TrnBtn(
+                            size: 144.0,
+                            label: 'Dribble',
+                            icon: _IconDribble(),
+                            onTap: () => context.push('/single/training/start'),
+                          ),
+                          _TrnBtn(
+                            size: 144.0,
+                            label: 'Ball Control',
+                            icon: _IconBallControl(),
+                            onTap: () => context.push('/single/training/start'),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -174,16 +168,16 @@ class _IconKick extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        const Icon(Icons.directions_run, color: Colors.white, size: 40),
+        const Icon(Icons.directions_run, color: Colors.white, size: 56),
         Positioned(
           bottom: -2,
           right: -2,
           child: Container(
-            width: 20,
-            height: 20,
+            width: 28,
+            height: 28,
             decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
             alignment: Alignment.center,
-            child: const Icon(Icons.sports_soccer, color: Colors.black87, size: 14),
+            child: const Icon(Icons.sports_soccer, color: Colors.black87, size: 20),
           ),
         ),
       ],
@@ -195,13 +189,13 @@ class _IconPass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 60,
-      height: 40,
+      width: 86,
+      height: 56,
       child: Stack(
         children: [
           const Align(
             alignment: Alignment.centerLeft,
-            child: Icon(Icons.sports_soccer, color: Colors.white, size: 28),
+            child: Icon(Icons.sports_soccer, color: Colors.white, size: 40),
           ),
           Align(
             alignment: Alignment.centerRight,
@@ -210,8 +204,8 @@ class _IconPass extends StatelessWidget {
               children: List.generate(
                 3,
                 (_) => Container(
-                  width: 3,
-                  height: 16,
+                  width: 4,
+                  height: 24,
                   margin: const EdgeInsets.symmetric(horizontal: 2),
                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(2)),
                 ),
@@ -230,11 +224,11 @@ class _IconDribble extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        const Icon(Icons.sports_soccer, color: Colors.white, size: 26),
-        const SizedBox(width: 46, height: 46),
+        const Icon(Icons.sports_soccer, color: Colors.white, size: 36),
+        const SizedBox(width: 66, height: 66),
         Positioned(
           bottom: 4,
-          child: Icon(Icons.redo, size: 26, color: Colors.white.withOpacity(0.95)),
+          child: Icon(Icons.redo, size: 36, color: Colors.white.withOpacity(0.95)),
         ),
       ],
     );
@@ -247,11 +241,11 @@ class _IconBallControl extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        const Icon(Icons.sports_soccer, color: Colors.white, size: 32),
+        const Icon(Icons.sports_soccer, color: Colors.white, size: 46),
         const Positioned(
           top: -4,
           right: -4,
-          child: Icon(Icons.access_time, color: Colors.white, size: 18),
+          child: Icon(Icons.access_time, color: Colors.white, size: 26),
         ),
       ],
     );

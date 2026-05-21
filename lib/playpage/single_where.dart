@@ -80,46 +80,40 @@ class _SingleWherePageState extends State<SingleWherePage> {
                   ),
                 ),
                 Expanded(
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      final circle = 100.0;
-                      return Center(
-                        child: GridView.count(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: const EdgeInsets.symmetric(horizontal: 40),
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 30,
-                          crossAxisSpacing: 30,
-                          children: [
-                            _LocBtn(
-                              size: circle,
-                              label: 'Home',
-                              icon: Icon(Icons.home_filled, color: Colors.white, size: circle * 0.45),
-                              onTap: _goNext,
-                            ),
-                            _LocBtn(
-                              size: circle,
-                              label: 'Park',
-                              icon: Icon(Icons.park, color: Colors.white, size: circle * 0.45),
-                              onTap: _goNext,
-                            ),
-                            _LocBtn(
-                              size: circle,
-                              label: '5-Pitch',
-                              icon: _PitchIco(text: '5', size: circle * 0.5),
-                              onTap: _goNext,
-                            ),
-                            _LocBtn(
-                              size: circle,
-                              label: '11-Pitch',
-                              icon: _PitchIco(text: '11', size: circle * 0.5),
-                              onTap: _goNext,
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Wrap(
+                        spacing: 30,
+                        runSpacing: 30,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          _LocBtn(
+                            size: 144.0,
+                            label: 'Home',
+                            icon: Icon(Icons.home_filled, color: Colors.white, size: 144.0 * 0.45),
+                            onTap: _goNext,
+                          ),
+                          _LocBtn(
+                            size: 144.0,
+                            label: 'Park',
+                            icon: Icon(Icons.park, color: Colors.white, size: 144.0 * 0.45),
+                            onTap: _goNext,
+                          ),
+                          _LocBtn(
+                            size: 144.0,
+                            label: '5-Pitch',
+                            icon: _PitchIco(text: '5', size: 144.0 * 0.5),
+                            onTap: _goNext,
+                          ),
+                          _LocBtn(
+                            size: 144.0,
+                            label: '11-Pitch',
+                            icon: _PitchIco(text: '11', size: 144.0 * 0.5),
+                            onTap: _goNext,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
