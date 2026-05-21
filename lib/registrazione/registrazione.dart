@@ -20,14 +20,16 @@ class _RegistrationFlowPageState extends State<RegistrationFlowPage> {
   final _controller = PageController();
   int _index = 0;
 
-  // ---- STEP 1 ----
-  final _form1 = GlobalKey<FormState>();
-  final _nick = TextEditingController();
-  final _email = TextEditingController();
-  final _password = TextEditingController();
-  final _confirm = TextEditingController();
-  bool _acceptTos = false;
-  bool _newsletter = false;
+   // ---- STEP 1 ----
+   final _form1 = GlobalKey<FormState>();
+   final _nick = TextEditingController();
+   final _email = TextEditingController();
+   final _password = TextEditingController();
+   final _confirm = TextEditingController();
+   bool _acceptTos = false;
+   bool _newsletter = false;
+   bool _privacyAccepted = false;
+   bool _obscurePassword = true;
 
   // ---- STEP 2 ----
   final _form2 = GlobalKey<FormState>();
@@ -270,25 +272,39 @@ class _RegistrationFlowPageState extends State<RegistrationFlowPage> {
                           ),
                           const SizedBox(height: 12),
 
-                          _CircleToggleRow(
-                            value: _acceptTos,
-                            onChanged: (val) => setState(() => _acceptTos = val),
-                            child: RichText(
-                              text: TextSpan(
-                                style: _body,
-                                children: [
-                                  const TextSpan(text: 'I accept the '),
-                                  TextSpan(
-                                      text: 'Terms and conditions',
-                                      style: _body.copyWith(color: kPrimary)),
-                                  const TextSpan(text: ' and '),
-                                  TextSpan(
-                                      text: 'Privacy Policy', style: _body.copyWith(color: kPrimary)),
-                                  const TextSpan(text: '.'),
-                                ],
-                              ),
-                            ),
-                          ),
+                           _CircleToggleRow(
+                             value: _acceptTos,
+                             onChanged: (val) => setState(() => _acceptTos = val),
+                             child: RichText(
+                               text: TextSpan(
+                                 style: _body,
+                                 children: [
+                                   const TextSpan(text: 'I accept the '),
+                                   TextSpan(
+                                       text: 'Terms and conditions',
+                                       style: _body.copyWith(color: kPrimary)),
+                                   const TextSpan(text: '.'),
+                                 ],
+                               ),
+                             ),
+                           ),
+                           const SizedBox(height: 8),
+                           _CircleToggleRow(
+                             value: _privacyAccepted,
+                             onChanged: (val) => setState(() => _privacyAccepted = val),
+                             child: RichText(
+                               text: TextSpan(
+                                 style: _body,
+                                 children: [
+                                   const TextSpan(text: 'I accept the '),
+                                   TextSpan(
+                                       text: 'Privacy Policy',
+                                       style: _body.copyWith(color: kPrimary)),
+                                   const TextSpan(text: '.'),
+                                 ],
+                               ),
+                             ),
+                           ),
                           const SizedBox(height: 8),
                           _CircleToggleRow(
                             value: _newsletter,
@@ -299,13 +315,22 @@ class _RegistrationFlowPageState extends State<RegistrationFlowPage> {
 
                           Text('Password', style: _label),
                           const SizedBox(height: 8),
-                          TextFormField(
-                            controller: _password,
-                            obscureText: true,
-                            style: _body.copyWith(color: Colors.white),
-                            decoration: _field(hint: 'Bestpassword1234!'),
-                            validator: (v) => (v == null || v.length < 8) ? 'Password troppo corta' : null,
-                          ),
+                           TextFormField(
+                             controller: _password,
+                             obscureText: _obscurePassword,
+                             style: _body.copyWith(color: Colors.white),
+                             decoration: _field(
+                               hint: 'Bestpassword1234!',
+                               suffix: IconButton(
+                                 icon: Icon(
+                                   _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                                   color: Colors.white,
+                                 ),
+                                 onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                               ),
+                             ),
+                             validator: (v) => (v == null || v.length < 8) ? 'Password troppo corta' : null,
+                           ),
                           const SizedBox(height: 8),
                           _Rules(items: const [
                             'Min 8 caratteri',
@@ -353,20 +378,14 @@ class _RegistrationFlowPageState extends State<RegistrationFlowPage> {
                           // Where are you playing from? (selezione con freccia verde destra)
                           Text('Where are you playing from?', style: _label),
                           const SizedBox(height: 8),
-                          TextFormField(
-                            controller: _country,
-                            readOnly: true,
-                            style: _body.copyWith(color: Colors.white),
-                            decoration: _field(
-                              hint: 'Select a country',
-                              suffix: const Padding(
-                                padding: EdgeInsets.only(right: 6),
-                                child: Icon(Icons.chevron_right, color: kPrimary),
-                              ),
-                            ),
-                            onTap: _pickCountry,
-                            validator: (v) => (v == null || v.isEmpty) ? 'Richiesto' : null,
-                          ),
+                           TextFormField(
+                             controller: _country,
+                             readOnly: true,
+                             style: _body.copyWith(color: Colors.white),
+                             decoration: _field(hint: 'Select a country'),
+                             onTap: _pickCountry,
+                             validator: (v) => (v == null || v.isEmpty) ? 'Richiesto' : null,
+                           ),
                           const SizedBox(height: 24),
 
                           // Birth date + Gender (affiancati)
@@ -396,20 +415,14 @@ class _RegistrationFlowPageState extends State<RegistrationFlowPage> {
                                   children: [
                                     Text('Gender', style: _label),
                                     const SizedBox(height: 8),
-                                    TextFormField(
-                                      readOnly: true,
-                                      controller: TextEditingController(text: _gender ?? ''),
-                                      style: _body.copyWith(color: Colors.white),
-                                      decoration: _field(
-                                        hint: 'Select the gender',
-                                        suffix: const Padding(
-                                          padding: EdgeInsets.only(right: 6),
-                                          child: Icon(Icons.expand_more, color: kPrimary),
-                                        ),
-                                      ),
-                                      onTap: _pickGender,
-                                      validator: (_) => (_gender == null) ? 'Richiesto' : null,
-                                    ),
+                                       TextFormField(
+                                         readOnly: true,
+                                         controller: TextEditingController(text: _gender ?? ''),
+                                         style: _body.copyWith(color: Colors.white),
+                                         decoration: _field(hint: 'Select the gender'),
+                                         onTap: _pickGender,
+                                         validator: (_) => (_gender == null) ? 'Richiesto' : null,
+                                       ),
                                   ],
                                 ),
                               ),

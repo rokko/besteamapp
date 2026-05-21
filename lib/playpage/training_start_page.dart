@@ -114,16 +114,16 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
                         splashRadius: 22,
                       ),
                       const SizedBox(width: 6),
-                      Text(
-                        "LET'S START THE TRAINING",
-                        style: GoogleFonts.oswald(
-                          fontSize: 20,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                          letterSpacing: .8,
-                        ),
-                      ),
+                       Text(
+                         "LET'S START TRAINING",
+                         style: GoogleFonts.oswald(
+                           fontSize: 32,
+                           fontStyle: FontStyle.italic,
+                           fontWeight: FontWeight.w800,
+                           color: Color.fromRGBO(255, 253, 253, 1),
+                           letterSpacing: .8,
+                         ),
+                       ),
                     ],
                   ),
                 ),
@@ -176,7 +176,7 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
                     child: (_state == _TState.idle || _state == _TState.paused)
                         ? _SwipeToStart(
                             key: const ValueKey('swipe'),
-                            label: _state == _TState.idle ? 'Swipe to START' : 'Swipe to RESUME',
+                             label: _state == _TState.idle ? 'Swipe to start' : 'Swipe to resume',
                             onComplete: _start,
                           )
                         : Row(

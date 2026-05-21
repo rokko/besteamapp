@@ -43,34 +43,34 @@ class _PitchDetailPageState extends State<PitchDetailPage> {
                     splashRadius: 22,
                   ),
                   const SizedBox(height: 2),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: Text('YOUR PITCH',
-                      style: GoogleFonts.oswald(
-                        fontSize: 22, fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w800, color: Colors.white)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8, top: 2),
-                    child: Text('Info about your pitch',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 12, fontStyle: FontStyle.italic,
-                        color: Colors.white70)),
-                  ),
+                   Padding(
+                     padding: const EdgeInsets.only(left: 4),
+                     child: Text('YOUR PITCH',
+                       style: GoogleFonts.oswald(
+                         fontSize: 32, fontStyle: FontStyle.italic,
+                         fontWeight: FontWeight.w800, color: Color.fromRGBO(255, 253, 253, 1))),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.only(left: 8, top: 2),
+                     child: Text('info about your pitch',
+                       style: GoogleFonts.montserrat(
+                         fontSize: 20, fontStyle: FontStyle.italic,
+                         color: Color.fromRGBO(255, 253, 253, 1))),
+                   ),
                 ],
               ),
             ),
 
-            // immagine grande
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  p.image, height: 130, width: double.infinity, fit: BoxFit.cover,
-                ),
-              ),
-            ),
+             // immagine grande
+             Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 16),
+               child: ClipRRect(
+                 borderRadius: BorderRadius.circular(10),
+                 child: Image.asset(
+                   p.image, height: 190, width: 337, fit: BoxFit.cover,
+                 ),
+               ),
+             ),
             const SizedBox(height: 12),
 
             // info

@@ -57,20 +57,20 @@ class _DeviceSelectPageState extends State<DeviceSelectPage> {
                     splashRadius: 22,
                   ),
                   const SizedBox(height: 2),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: Text('DO YOU HAVE A DEVICE?',
-                      style: GoogleFonts.oswald(
-                        fontSize: 22, fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w800, color: Colors.white)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8, top: 2),
-                    child: Text('Select an option',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 12, fontStyle: FontStyle.italic,
-                        color: Colors.white70)),
-                  ),
+                   Padding(
+                     padding: const EdgeInsets.only(left: 4),
+                     child: Text('DO YOU HAVE A DEVICE',
+                       style: GoogleFonts.oswald(
+                         fontSize: 32, fontStyle: FontStyle.italic,
+                         fontWeight: FontWeight.w800, color: Color.fromRGBO(255, 253, 253, 1))),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.only(left: 8, top: 2),
+                     child: Text('Select an option',
+                       style: GoogleFonts.montserrat(
+                         fontSize: 20, fontStyle: FontStyle.italic,
+                         color: Color.fromRGBO(255, 253, 253, 1))),
+                   ),
                 ],
               ),
             ),
