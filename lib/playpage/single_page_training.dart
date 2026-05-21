@@ -61,10 +61,10 @@ class _SingleTrainingPageState extends State<SingleTrainingPage> {
                           Text(
                             'WHAT KIND OF TRAINING',
                             style: GoogleFonts.oswald(
-                              fontSize: 22,
+                              fontSize: 32,
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w800,
-                              color: Colors.white,
+                              color: Color.fromRGBO(255, 253, 253, 1),
                               letterSpacing: .8,
                             ),
                           ),

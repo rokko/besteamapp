@@ -119,21 +119,28 @@ class _PlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: onTap,
-      style: OutlinedButton.styleFrom(
-        backgroundColor: const Color(0xFF262626),
-        side: BorderSide(color: Colors.white.withOpacity(0.35), width: 1.2),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        padding: const EdgeInsets.symmetric(vertical: 22),
-      ),
-      child: Text(
-        label,
-        style: GoogleFonts.oswald(
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          color: Colors.white,
-          letterSpacing: .8,
+    return SizedBox(
+      width: 336,
+      height: 86.65,
+      child: OutlinedButton(
+        onPressed: onTap,
+        style: OutlinedButton.styleFrom(
+          backgroundColor: const Color(0xFF262626),
+          side: BorderSide(color: Colors.white.withOpacity(0.35), width: 1.2),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          // Adjust padding to fill the SizedBox appropriately
+          padding: EdgeInsets.zero,
+        ),
+        child: Center(
+          child: Text(
+            label,
+            style: GoogleFonts.oswald(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+              letterSpacing: .8,
+            ),
+          ),
         ),
       ),
     );
