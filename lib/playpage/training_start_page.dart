@@ -51,9 +51,9 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
       setState(() => _msLeft -= 10);
       tick += 10;
 
-      // Simulazione progress metrica (puoi collegare sensori reali qui)
-      if (tick % 1000 == 0 && _bounce < _bounceGoal) _bounce++;            // 1/sec
-      if (tick % 4000 == 0 && _drops < _dropGoal) _drops++;                // 1/4 sec (più lento)
+      // Simulazione progress metrica
+      if (tick % 1000 == 0 && _bounce < _bounceGoal) _bounce++;
+      if (tick % 4000 == 0 && _drops < _dropGoal) _drops++;
     });
   }
 
@@ -68,7 +68,6 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
   void _stop() {
     _timer?.cancel();
     setState(() => _state = _TState.finished);
-    // vai al recap
     context.push('/single/training/recap');
   }
 
@@ -91,44 +90,44 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            // Strisce verticali rossastre mentre è in RUN (come nello screen)
             if (running) Positioned.fill(child: CustomPaint(painter: _StripesPainter())),
 
             Column(
               children: [
-                // Header condiviso
                 AppHeader(
                   onHomeTap: () => context.go('/home'),
                   onBellTap: () => context.push('/notifications'),
                   onMenuTap: () => _scaffoldKey.currentState?.openDrawer(),
                 ),
 
-                // Back + Titolo
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 2, 8, 12),
-                  child: Row(
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      IconButton(
-                        icon: const Icon(Icons.chevron_left, color: Colors.white),
-                        onPressed: () => context.pop(),
-                        splashRadius: 22,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
+                          onPressed: () => context.pop(),
+                          splashRadius: 22,
+                        ),
                       ),
-                      const SizedBox(width: 6),
-                       Text(
-                         "LET'S START TRAINING",
-                         style: GoogleFonts.oswald(
-                           fontSize: 32,
-                           fontStyle: FontStyle.italic,
-                           fontWeight: FontWeight.w800,
-                           color: Color.fromRGBO(255, 253, 253, 1),
-                           letterSpacing: .8,
-                         ),
-                       ),
+                      Text(
+                        "LET’S START TRAINING",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.oswald(
+                          fontSize: 32,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w800,
+                          color: const Color.fromRGBO(255, 253, 253, 1),
+                          letterSpacing: .8,
+                        ),
+                      ),
                     ],
                   ),
                 ),
 
-                // Timer card
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Container(
@@ -153,22 +152,18 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
 
                 const SizedBox(height: 14),
 
-                // RIGHE METRICHE
                 _MetricRow(
                   title: 'Bounce Count',
-                  trailingText: '${_bounce}/${_bounceGoal}',
+                  trailingText: '$_bounce/$_bounceGoal',
                 ),
                 const SizedBox(height: 12),
                 _MetricRow(
                   title: 'Ball Drop',
-                  trailingText: '${_drops}/${_dropGoal}',
+                  trailingText: '$_drops/$_dropGoal',
                 ),
 
                 const Spacer(),
 
-                // Controlli bottom:
-                // - IDLE/PAUSED => Swipe per partire/ripartire
-                // - RUNNING     => bottoni Pause + Stop
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                   child: AnimatedSwitcher(
@@ -176,7 +171,7 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
                     child: (_state == _TState.idle || _state == _TState.paused)
                         ? _SwipeToStart(
                             key: const ValueKey('swipe'),
-                             label: _state == _TState.idle ? 'Swipe to start' : 'Swipe to resume',
+                            label: _state == _TState.idle ? 'Swipe to start' : 'Swipe to resume',
                             onComplete: _start,
                           )
                         : Row(
@@ -208,8 +203,6 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
   }
 }
 
-/* ------------------------ UI bits ------------------------ */
-
 class _MetricRow extends StatelessWidget {
   final String title;
   final String trailingText;
@@ -223,7 +216,6 @@ class _MetricRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
-          // label scura
           Expanded(
             flex: 2,
             child: Container(
@@ -254,7 +246,6 @@ class _MetricRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 12),
-          // box verde con valore
           Expanded(
             flex: 1,
             child: Container(
@@ -305,8 +296,6 @@ class _PillButton extends StatelessWidget {
   }
 }
 
-/* ---------------------- Swipe control --------------------- */
-
 class _SwipeToStart extends StatefulWidget {
   final String label;
   final VoidCallback onComplete;
@@ -351,7 +340,6 @@ class _SwipeToStartState extends State<_SwipeToStart> with SingleTickerProviderS
         child: Stack(
           alignment: Alignment.centerLeft,
           children: [
-            // testo
             Align(
               alignment: Alignment.center,
               child: Text(
@@ -363,7 +351,6 @@ class _SwipeToStartState extends State<_SwipeToStart> with SingleTickerProviderS
                 ),
               ),
             ),
-            // thumb
             Positioned(
               left: pad + _pos,
               child: GestureDetector(
@@ -375,7 +362,6 @@ class _SwipeToStartState extends State<_SwipeToStart> with SingleTickerProviderS
                     setState(() => _pos = max);
                     widget.onComplete();
                   } else {
-                    // torna indietro
                     _ac
                       ..value = _pos / max
                       ..animateTo(0, curve: Curves.easeOut);
@@ -387,10 +373,10 @@ class _SwipeToStartState extends State<_SwipeToStart> with SingleTickerProviderS
                 child: Container(
                   width: thumb,
                   height: thumb,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
-                    boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))],
+                    boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))],
                   ),
                   alignment: Alignment.center,
                   child: const Icon(Icons.double_arrow, size: 20, color: Colors.black87),
@@ -403,8 +389,6 @@ class _SwipeToStartState extends State<_SwipeToStart> with SingleTickerProviderS
     });
   }
 }
-
-/* ----------------------- Painter stripes ----------------------- */
 
 class _StripesPainter extends CustomPainter {
   @override
@@ -422,8 +406,6 @@ class _StripesPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
-
-/* ---------------------- Pause dialog ---------------------- */
 
 Future<bool?> _showPauseDialog(BuildContext context) {
   return showDialog<bool>(
