@@ -21,7 +21,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   void _nextOrFinish() {
     if (_index == _images.length - 1) {
-      context.go('/registrazione');
+      // After last onboarding page, go to authentication (login)
+      context.go('/auth');
     } else {
       _controller.nextPage(
         duration: const Duration(milliseconds: 280),

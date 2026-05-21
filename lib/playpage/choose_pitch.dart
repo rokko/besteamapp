@@ -60,7 +60,7 @@ class _ChoosePitchPageState extends State<ChoosePitchPage> {
                      padding: const EdgeInsets.only(left: 8, top: 2),
                      child: Text('select your favorite pitch',
                        style: GoogleFonts.montserrat(
-                         fontSize: 20, fontStyle: FontStyle.italic,
+                         fontSize: 20,
                          color: Color.fromRGBO(255, 253, 253, 1))),
                    ),
                 ],
@@ -98,16 +98,16 @@ class _ChoosePitchPageState extends State<ChoosePitchPage> {
                                 const SizedBox(height: 2),
                                 Text(p.subtitle,
                                   style: GoogleFonts.montserrat(
-                                    fontSize: 12, color: Colors.white70)),
+                                    fontSize: 14, color: Color.fromRGBO(209, 209, 209, 1))),
                               ],
                             ),
                           ),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(6),
                             child: Image.asset(
-                              p.image, width: 86, height: 56, fit: BoxFit.cover,
+                              p.image, width: 107, height: 60, fit: BoxFit.cover,
                               errorBuilder: (_, __, ___) => Container(
-                                width: 86, height: 56, color: Colors.black26,
+                                width: 107, height: 60, color: Colors.black26,
                                 child: const Icon(Icons.image, color: Colors.white54),
                               ),
                             ),

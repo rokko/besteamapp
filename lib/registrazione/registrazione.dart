@@ -78,7 +78,8 @@ class _RegistrationFlowPageState extends State<RegistrationFlowPage> {
   // Utils
   void _goBack() {
     if (_index == 0) {
-      if (Navigator.of(context).canPop()) context.pop();
+      // Always return to auth page instead of default pop
+      context.go('/auth');
     } else {
       _controller.previousPage(duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
     }

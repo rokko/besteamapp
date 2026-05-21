@@ -16,6 +16,7 @@ import 'package:besteamapp/playpage/choose_pitch.dart';
 import 'package:besteamapp/playpage/pitch_detail.dart';
 import 'package:besteamapp/playpage/device_select.dart';
 import 'splash/splash.dart';
+import 'auth_page.dart';
 void main() => runApp(const MyApp());
 
 final _router = GoRouter(
@@ -23,6 +24,7 @@ final _router = GoRouter(
   routes: [
     GoRoute(path: '/splash', builder: (_, __) => const SplashPage()),
     GoRoute(path: '/onboarding', builder: (_, __) => const OnboardingPage()),
+    GoRoute(path: '/auth', builder: (_, __) => const AuthPage()),
     GoRoute(path: '/registrazione', builder: (_, __) => const RegistrationFlowPage()),
     GoRoute(path: '/privacy', builder: (_, __) => const PrivacyPage()),
     GoRoute(path: '/home', builder: (_, __) => const HomePage()),
