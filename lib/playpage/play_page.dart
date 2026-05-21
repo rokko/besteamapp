@@ -22,72 +22,88 @@ class _PlayPageState extends State<PlayPage> {
       backgroundColor: kBg,
       drawer: const ProfileDrawer(),
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            // Header condiviso (uguale alle altre pagine)
-            AppHeader(
-              onHomeTap: () => context.go('/home'),
-              onBellTap: () => context.push('/notifications'),
-              onMenuTap: () => _scaffoldKey.currentState?.openDrawer(),
-            ),
-
-            // Titolo con freccia back
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8, 2, 8, 10),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.chevron_left, color: Colors.white),
-                    onPressed: () => context.pop(),
-                    splashRadius: 22,
-                  ),
-                  const Spacer(),
-                  Text(
-                    "LET'S PLAY!",
-                    style: GoogleFonts.oswald(
-                      fontSize: 28,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
-                      letterSpacing: .8,
-                    ),
-                  ),
-                  const Spacer(),
-                  const SizedBox(width: 48),
-                ],
-              ),
-            ),
-
-            // Corpo con gradiente verde + 2 bottoni
-            Expanded(
+            // Sfondo gradiente intero
+            Positioned.fill(
               child: Container(
-                width: double.infinity,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter, end: Alignment.bottomCenter,
-                    colors: [Color(0xFF1F3C25), Color(0xFF29A146)],  // verde scuro -> verde
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 28),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 24),
-                      _PlayButton(
-  label: 'SINGLE PLAYER',
-  onTap: () => context.push('/single/where'),
-),
-                      const SizedBox(height: 18),
-                     _PlayButton(
-  label: 'PITCH',
-  onTap: () => context.push('/pitch/list'),
-),
-
-                    ],
+                    colors: [Color(0xFF1C2C20), Color(0xFF2CC653)],  // verde scuro -> verde brillante
                   ),
                 ),
               ),
+            ),
+            Column(
+              children: [
+                // Header condiviso (uguale alle altre pagine)
+                AppHeader(
+                  onHomeTap: () => context.go('/home'),
+                  onBellTap: () => context.push('/notifications'),
+                  onMenuTap: () => _scaffoldKey.currentState?.openDrawer(),
+                ),
+
+                // Titolo con freccia back
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(6, 6, 6, 8),
+                  child: SizedBox(
+                    height: 48,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: IconButton(
+                            icon: const Icon(Icons.chevron_left, color: Colors.white),
+                            onPressed: () => context.pop(),
+                            splashRadius: 22,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 56),
+                          child: Text(
+                            "LET'S PLAY!",
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.oswald(
+                              fontSize: 26,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                
+                // Bottoni centrati verticalmente nel restante spazio
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 28),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _PlayButton(
+                          label: 'SINGLE PLAYER',
+                          onTap: () => context.push('/single/where'),
+                        ),
+                        const SizedBox(height: 20),
+                        _PlayButton(
+                          label: 'PITCH',
+                          onTap: () => context.push('/pitch/list'),
+                        ),
+                        const SizedBox(height: 100), // sposta leggermente in alto per bilanciare l'aspetto visivo
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -106,19 +122,18 @@ class _PlayButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: onTap,
       style: OutlinedButton.styleFrom(
-        backgroundColor: const Color(0xFF2F2F2F),
-        side: BorderSide(color: Colors.white.withOpacity(0.7), width: 1),
+        backgroundColor: const Color(0xFF262626),
+        side: BorderSide(color: Colors.white.withOpacity(0.35), width: 1.2),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        padding: const EdgeInsets.symmetric(vertical: 18),
+        padding: const EdgeInsets.symmetric(vertical: 22),
       ),
       child: Text(
         label,
         style: GoogleFonts.oswald(
-          fontSize: 18,
-          fontStyle: FontStyle.italic,
-          fontWeight: FontWeight.w800,
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
           color: Colors.white,
-          letterSpacing: .6,
+          letterSpacing: .8,
         ),
       ),
     );

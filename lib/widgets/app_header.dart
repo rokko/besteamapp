@@ -18,7 +18,7 @@ class AppHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120,
+      height: 60,
       child: Stack(
         children: [
           Positioned.fill(
@@ -28,29 +28,32 @@ class AppHeader extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.home_outlined, color: Colors.white, size: 24),
-                  onPressed: onHomeTap,
-                  splashRadius: 22,
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: const Icon(Icons.notifications, color: _green, size: 24),
-                  onPressed: onBellTap,
-                  splashRadius: 22,
-                ),
-                const Spacer(),
-                const Icon(Icons.sports_soccer, color: _green, size: 26),
-                const SizedBox(width: 18),
-                IconButton(
-                  icon: const Icon(Icons.menu, color: Colors.white, size: 28),
-                  onPressed: onMenuTap,
-                  splashRadius: 22,
-                ),
-              ],
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Align(
+              alignment: const Alignment(0, -0.2),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.home_outlined, color: Colors.white, size: 24),
+                    onPressed: onHomeTap,
+                    splashRadius: 22,
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: const Icon(Icons.notifications, color: _green, size: 24),
+                    onPressed: onBellTap,
+                    splashRadius: 22,
+                  ),
+                  const Spacer(),
+                  const Icon(Icons.sports_soccer, color: _green, size: 26),
+                  const SizedBox(width: 18),
+                  IconButton(
+                    icon: const Icon(Icons.menu, color: Colors.white, size: 28),
+                    onPressed: onMenuTap,
+                    splashRadius: 22,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -64,8 +67,8 @@ class _BottomCurveClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     final h = size.height, w = size.width;
     return Path()
-      ..lineTo(0, h - 40)
-      ..quadraticBezierTo(w * .5, h, w, h - 40)
+      ..lineTo(0, h - 8)
+      ..quadraticBezierTo(w * .5, h, w, h - 8)
       ..lineTo(w, 0)
       ..close();
   }

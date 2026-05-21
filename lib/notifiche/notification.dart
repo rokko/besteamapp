@@ -38,31 +38,40 @@ class NotificationsPage extends StatelessWidget {
                 // RIGA: back + titolo centrato "NOTIFICATION"
                 Padding(
                   padding: const EdgeInsets.fromLTRB(6, 6, 6, 8),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () => Navigator.of(context).maybePop(),
-                        icon: const Icon(
-                          Icons.chevron_left,
-                          color: Colors.white,
+                  child: SizedBox(
+                    height: 48,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: IconButton(
+                            onPressed: () => Navigator.of(context).maybePop(),
+                            icon: const Icon(
+                              Icons.chevron_left,
+                              color: Colors.white,
+                            ),
+                            splashRadius: 22,
+                          ),
                         ),
-                        splashRadius: 22,
-                      ),
-                      const Spacer(),
-                      Text(
-                        'NOTIFICATION',
-                        style: GoogleFonts.oswald(
-                          fontSize: 26,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                          letterSpacing: 1.0,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 56),
+                          child: Text(
+                            'NOTIFICATION',
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.oswald(
+                              fontSize: 26,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              letterSpacing: 1.0,
+                            ),
+                          ),
                         ),
-                      ),
-                      const Spacer(),
-                      // spazio per allineare il titolo proprio al centro
-                      const SizedBox(width: 48),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
 
@@ -88,49 +97,6 @@ class NotificationsPage extends StatelessWidget {
 
 /* ===================== WIDGETS ===================== */
 
-class _CurvedHeader extends StatelessWidget {
-  const _CurvedHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 80, // più compatto, come nello screen
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: ClipPath(
-              clipper: _BottomCurveClipper(),
-              child: Container(color: NotificationsPage.kHeaderBg),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            child: Row(
-              children: const [
-                // (iconcine top come nello stile)
-                Icon(Icons.home_outlined, color: Colors.white, size: 24),
-                SizedBox(width: 16),
-                Icon(
-                  Icons.notifications,
-                  color: NotificationsPage.kGreen,
-                  size: 24,
-                ),
-                Spacer(),
-                Icon(
-                  Icons.sports_soccer,
-                  color: NotificationsPage.kGreen,
-                  size: 24,
-                ),
-                SizedBox(width: 16),
-                Icon(Icons.menu, color: Colors.white, size: 26),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _NotificationsList extends StatelessWidget {
   const _NotificationsList();
@@ -228,40 +194,4 @@ class _NotificationTile extends StatelessWidget {
 
 /* =============== Bottom bar come Home ============== */
 
-/* ================ Helpers grafici ================== */
 
-class _LinesPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final p = Paint()
-      ..color = NotificationsPage.kLine
-      ..strokeWidth = 1.2;
-    final xs = [
-      size.width * .18,
-      size.width * .34,
-      size.width * .68,
-      size.width * .84,
-    ];
-    for (final x in xs) {
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), p);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _BottomCurveClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final h = size.height, w = size.width;
-    return Path()
-      ..lineTo(0, h - 32)
-      ..quadraticBezierTo(w * 0.5, h, w, h - 32)
-      ..lineTo(w, 0)
-      ..close();
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
-}
