@@ -78,11 +78,10 @@ class _ChoosePitchPageState extends State<ChoosePitchPage> {
                     borderRadius: BorderRadius.circular(10),
                     onTap: () => context.push('/pitch/detail', extra: p),
                     child: Container(
-                      height: 74,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.06),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                       height: 60,
+                       decoration: BoxDecoration(
+                         borderRadius: BorderRadius.circular(10),
+                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Row(
                         children: [

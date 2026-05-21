@@ -151,9 +151,9 @@ class _NotificationsList extends StatelessWidget {
     ];
 
     return ListView.separated(
-      padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+      padding: const EdgeInsets.fromLTRB(0, 4, 0, 8),
       itemCount: items.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 10),
+      separatorBuilder: (_, __) => const Divider(color: Colors.white12, height: 1),
       itemBuilder: (_, i) => _NotificationTile(item: items[i]),
     );
   }
@@ -177,46 +177,49 @@ class _NotificationTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          color: Colors.white.withOpacity(0.05),
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+          color: item.unread ? Colors.white.withOpacity(0.05) : Colors.transparent,
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           child: Row(
-  crossAxisAlignment: CrossAxisAlignment.center,
-  children: [
-    if (item.unread)
-      Container(
-        width: 8,
-        height: 8,
-        margin: const EdgeInsets.only(right: 10),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-        ),
-      ),
-    Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            item.title,
-            style: GoogleFonts.oswald(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 24,
+                child: item.unread
+                    ? Container(
+                        width: 8,
+                        height: 8,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                      )
+                    : null,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.title,
+                      style: GoogleFonts.oswald(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      item.body,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 12,
+                        color: Colors.white.withOpacity(0.7),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 2),
-          Text(
-            item.body,
-            style: GoogleFonts.montserrat(
-              fontSize: 12,
-              color: Colors.white.withOpacity(0.7),
-            ),
-          ),
-        ],
-      ),
-    ),
-  ],
-),
         ),
       ],
     );
